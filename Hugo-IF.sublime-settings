@@ -1,0 +1,33 @@
+// -----------------------------------------------------------------------------
+// Sublime Hugo-IF: Mandatory Settings                       v0.0.1 | 2019/10/17
+// -----------------------------------------------------------------------------
+// Packages shouldn't fiddle with ST settings unless strictly required!
+//
+// These settings are mandatory for Hugo source files, because Hugo doesn't
+// support Unicode.
+//
+// I've also added some commented-out recommended settings which end users can
+// copy and paste into "Packages/User/Alan.sublime-settings".
+{
+    // =========================================================================
+    // FILE ENCODING
+    // =========================================================================
+    // Hugo source files default encoding: ISO 8859-1/Latin1
+    "default_encoding":  "Western (ISO 8859-1)",
+    "fallback_encoding": "Western (ISO 8859-1)",
+
+    // You might override this in your User settings with another ISO encoding,
+    // according to need. But it has to be a single-character encoding!
+
+    // NOTE: ISO 8859-1 has to be set as "fallback_encoding" too, in order to
+    // prevent problems special characters, especially when pasting text, where
+    // Sublime Text will try to fall back on UTF-8 otherwise!
+
+    // --------------------------
+    // RECOMMENDED USER SETTINGS:
+    // --------------------------
+    // Users working with Hugo projects should add this as a global ST3 setting
+    // so they can check and change files encoding from ST3 task bar:
+    "show_encoding": true,
+    // NOTE: This only works as a user setting, it has no effect here.
+}

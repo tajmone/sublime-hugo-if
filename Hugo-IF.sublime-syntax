@@ -1,0 +1,365 @@
+%YAML 1.2
+---
+# "Hugo-IF.sublime-syntax"                                  Alpha 1 | 2019/10/17
+# ==============================================================================
+#                            Hugo Interactive Fiction
+# ==============================================================================
+# Syntax definition for Hugo IF Language:
+# -- http://www.generalcoffee.com/hugo/
+# ------------------------------------------------------------------------------
+# Copyright (c) Tristano Ajmone, 2019. MIT License.
+# -- https://github.com/tajmone/
+# ------------------------------------------------------------------------------
+name: Hugo IF
+file_extensions:
+  - hug
+  - g
+scope: source.hugo-if
+
+contexts:
+  prototype:
+    - include: comments
+
+  main:
+    - include: keywords
+    - include: numbers
+    - include: strings
+
+
+  numbers:
+    # --------------------------------------------------------------
+    # NOTE: This is the default definition from the syntax template!
+    # --------------------------------------------------------------
+    - match: '\b(-)?[0-9.]+\b'
+      scope: constant.numeric.hugo-if
+
+  strings:
+    # --------------------------------------------------------------
+    # NOTE: This is the default definition from the syntax template!
+    # --------------------------------------------------------------
+    # Strings begin and end with quotes, and use backslashes as an escape
+    # character.
+    - match: '"'
+      scope: punctuation.definition.string.begin.hugo-if
+      push: inside_string
+
+  inside_string:
+    - meta_include_prototype: false
+    - meta_scope: string.quoted.double.hugo-if
+    - match: '\.'
+      scope: constant.character.escape.hugo-if
+    - match: '"'
+      scope: punctuation.definition.string.end.hugo-if
+      pop: true
+
+  comments:
+    # Block comments begin with a '!\' and finish with a '\!'.
+    # The '!\' must come at the start of a line to be significant; it cannot be
+    # preceded by any other statements or remarks.
+    # Similarly, '\!' combination must come at the end of a line (or alone on an
+    # otherwise blank line).
+    - match: '^\s*!\\'
+      scope: punctuation.definition.comment.begin.hugo-if
+      push:
+        - meta_scope: comment.block.hugo-if
+        - match: '\\!\s*$'
+          scope: punctuation.definition.comment.end.hugo-if
+          pop: true
+    # Comments begin with a '!' and finish at the end of the line.
+    - match: '!'
+      scope: punctuation.definition.comment.end.hugo-if
+      push:
+        - meta_scope: comment.line.hugo-if
+        - match: $\n?
+          pop: true
+
+  ##############
+  #  KEYWORDS  #
+  ##############
+
+  # Keywords are if, else for and while.
+  # Note that backslashes don't need to be escaped within single quoted
+  # strings in YAML. When using single quoted strings, only single quotes
+  # need to be escaped: this is done by using two single quotes next to each
+  # other.
+
+  keywords:
+    - include: keywords-all
+    - include: word-operators
+
+  word-operators:
+    - match: (?i)\b(and|or|not)\b
+      scope: keyword.operator.word.hugo-if
+
+  keywords-all:
+    # --------------------------------------------------------------------------
+    # NOTE: Right now, just a huge list with all keywords stuffed-in and scoped
+    #       as 'keyword.other'. This is just a starting point, keywords will be
+    #       moved to better groups in due time.
+    # --------------------------------------------------------------------------
+    - match: '(?ix)\b(
+        \$additive   |
+        \$complex    |
+        arraydata\#  |
+        attr\#       |
+        debugdata\#  |
+        dictentry\#  |
+        eol\#        |
+        label\#      |
+        objectnum\#  |
+        prop\#       |
+        routine\#    |
+        stringdata\# |
+        textdata\#   |
+        value\#      |
+        var\#        |
+        addcontext   |
+        adjective    |
+        adjectives   |
+        after        |
+        alias        |
+        anything     |
+        array        |
+        article      |
+        before       |
+        break        |
+        call         |
+        capital      |
+        case         |
+        child        |
+        children     |
+        class        |
+        cls          |
+        color        |
+        colour       |
+        compound     |
+        constant     |
+        dict         |
+        do           |
+        elder        |
+        eldest       |
+        else         |
+        elseif       |
+        enumerate    |
+        event        |
+        false        |
+        for          |
+        global       |
+        graphics     |
+        held         |
+        hex          |
+        if           |
+        in           |
+        input        |
+        is           |
+        jump         |
+        local        |
+        locate       |
+        move         |
+        multi        |
+        multiheld    |
+        multinotheld |
+        music        |
+        name         |
+        nearby       |
+        newline      |
+        notheld      |
+        noun         |
+        nouns        |
+        number       |
+        object       |
+        parent       |
+        parse$       |
+        pause        |
+        picture      |
+        playback     |
+        print        |
+        printchar    |
+        property     |
+        punctuation  |
+        quit         |
+        random       |
+        readfile     |
+        readval      |
+        recordoff    |
+        recordon     |
+        removal      |
+        remove       |
+        repeat       |
+        replace      |
+        restart      |
+        restore      |
+        return       |
+        routine      |
+        run          |
+        runevents    |
+        save         |
+        scriptoff    |
+        scripton     |
+        select       |
+        serial$      |
+        sibling      |
+        sound        |
+        start        |
+        step         |
+        string       |
+        synonym      |
+        system       |
+        text         |
+        to           |
+        true         |
+        undo         |
+        verb         |
+        video        |
+        while        |
+        window       |
+        word         |
+        writefile    |
+        writeval     |
+        xobject      |
+        xverb        |
+        younger      |
+        youngest     |
+        ~all         |
+        ~and         |
+        ~any         |
+        ~except      |
+        ~oops
+        )\b'
+      scope: keyword.other.hugo-if
+
+    # --------------------------------------------------------------------------
+    # Hugo Keywords List
+    # --------------------------------------------------------------------------
+    #  [ ]  $additive     :
+    #  [ ]  $complex      :
+    #  [ ]  arraydata#    :
+    #  [ ]  attr#         :
+    #  [ ]  debugdata#    :
+    #  [ ]  dictentry#    :
+    #  [ ]  eol#          :
+    #  [ ]  label#        :
+    #  [ ]  objectnum#    :
+    #  [ ]  prop#         :
+    #  [ ]  routine#      :
+    #  [ ]  stringdata#   :
+    #  [ ]  textdata#     :
+    #  [ ]  value#        :
+    #  [ ]  var#          :
+    #  [ ]  addcontext    :
+    #  [ ]  adjective     :
+    #  [ ]  adjectives    :
+    #  [ ]  after         :
+    #  [ ]  alias         :
+    #  [X]  and           : keyword.operator.word
+    #  [ ]  anything      :
+    #  [ ]  array         :
+    #  [ ]  article       :
+    #  [ ]  before        :
+    #  [ ]  break         :
+    #  [ ]  call          :
+    #  [ ]  capital       :
+    #  [ ]  case          :
+    #  [ ]  child         :
+    #  [ ]  children      :
+    #  [ ]  class         :
+    #  [ ]  cls           :
+    #  [ ]  color         :
+    #  [ ]  colour        :
+    #  [ ]  compound      :
+    #  [ ]  constant      :
+    #  [ ]  dict          :
+    #  [ ]  do            :
+    #  [ ]  elder         :
+    #  [ ]  eldest        :
+    #  [ ]  else          :
+    #  [ ]  elseif        :
+    #  [ ]  enumerate     :
+    #  [ ]  event         :
+    #  [ ]  false         :
+    #  [ ]  for           :
+    #  [ ]  global        :
+    #  [ ]  graphics      :
+    #  [ ]  held          :
+    #  [ ]  hex           :
+    #  [ ]  if            :
+    #  [ ]  in            :
+    #  [ ]  input         :
+    #  [ ]  is            :
+    #  [ ]  jump          :
+    #  [ ]  local         :
+    #  [ ]  locate        :
+    #  [ ]  move          :
+    #  [ ]  multi         :
+    #  [ ]  multiheld     :
+    #  [ ]  multinotheld  :
+    #  [ ]  music         :
+    #  [ ]  name          :
+    #  [ ]  nearby        :
+    #  [ ]  newline       :
+    #  [X]  not           : keyword.operator.word
+    #  [ ]  notheld       :
+    #  [ ]  noun          :
+    #  [ ]  nouns         :
+    #  [ ]  number        :
+    #  [ ]  object        :
+    #  [X]  or            : keyword.operator.word
+    #  [ ]  parent        :
+    #  [ ]  parse$        :
+    #  [ ]  pause         :
+    #  [ ]  picture       :
+    #  [ ]  playback      :
+    #  [ ]  print         :
+    #  [ ]  printchar     :
+    #  [ ]  property      :
+    #  [ ]  punctuation   :
+    #  [ ]  quit          :
+    #  [ ]  random        :
+    #  [ ]  readfile      :
+    #  [ ]  readval       :
+    #  [ ]  recordoff     :
+    #  [ ]  recordon      :
+    #  [ ]  removal       :
+    #  [ ]  remove        :
+    #  [ ]  repeat        :
+    #  [ ]  replace       :
+    #  [ ]  restart       :
+    #  [ ]  restore       :
+    #  [ ]  return        :
+    #  [ ]  routine       :
+    #  [ ]  run           :
+    #  [ ]  runevents     :
+    #  [ ]  save          :
+    #  [ ]  scriptoff     :
+    #  [ ]  scripton      :
+    #  [ ]  select        :
+    #  [ ]  serial$       :
+    #  [ ]  sibling       :
+    #  [ ]  sound         :
+    #  [ ]  start         :
+    #  [ ]  step          :
+    #  [ ]  string        :
+    #  [ ]  synonym       :
+    #  [ ]  system        :
+    #  [ ]  text          :
+    #  [ ]  to            :
+    #  [ ]  true          :
+    #  [ ]  undo          :
+    #  [ ]  verb          :
+    #  [ ]  video         :
+    #  [ ]  while         :
+    #  [ ]  window        :
+    #  [ ]  word          :
+    #  [ ]  writefile     :
+    #  [ ]  writeval      :
+    #  [ ]  xobject       :
+    #  [ ]  xverb         :
+    #  [ ]  younger       :
+    #  [ ]  youngest      :
+    #  [ ]  ~all          :
+    #  [ ]  ~and          :
+    #  [ ]  ~any          :
+    #  [ ]  ~except       :
+    #  [ ]  ~oops         :
+
+# EOF #

@@ -1,0 +1,26 @@
+! SYNTAX TEST "Packages/Hugo-IF/Hugo-IF.sublime-syntax"
+
+! This is a single line comment.
+!<- punctuation.definition.comment & comment.line
+!^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^     comment.line
+
+print
+!<-^^ - comment.line
+
+!\ This is a block comment.
+!<- punctuation.definition.comment.begin & comment.block
+!^  punctuation.definition.comment.begin & comment.block
+! ^^^^^^^^^^^^^^^^^^^^^^^^^^               comment.block
+
+print "xxxx"
+!<-^^^^^^^^^                               comment.block
+
+\! garbage after closing delimiter
+!<-  - punctuation.definition.comment.end
+! ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^        comment.block
+
+\!
+!<- punctuation.definition.comment.end   & comment.block
+!^  punctuation.definition.comment.end   & comment.block
+print
+!<-^^ - comment.line

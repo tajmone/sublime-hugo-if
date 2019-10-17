@@ -1,0 +1,49 @@
+#####################
+#  Sublime Hugo-IF  #
+#####################
+
+root = true
+
+[*]
+indent_style = space
+indent_size = 2
+end_of_line = unset
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+
+## Configurations
+#################
+[.{git*,editorconfig}]
+indent_size = unset
+end_of_line = lf
+
+
+## Hugo Test Sources
+####################
+[*.hug]
+charset = latin1
+
+
+## Markdown GFM
+###############
+[*.md]
+indent_size = unset
+end_of_line = unset
+
+
+## Plain-Text Files
+###################
+[{*.txt,LICENSE}]
+indent_size = unset
+
+
+## Sublime Text
+###############
+
+[*.sublime-snippet]
+indent_style = tab
+
+
+# EOF #
